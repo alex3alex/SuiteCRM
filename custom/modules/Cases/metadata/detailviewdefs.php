@@ -13,6 +13,10 @@ array (
           1 => 'DUPLICATE',
           2 => 'DELETE',
           3 => 'FIND_DUPLICATES',
+          4 =>
+                array (
+                    'customCode' => '<input title="{$MOD.LBL_CREATE_KB_ARTICLE}" class="button" type="button" name="create_kb_article" id="create_kb_article" value="{$MOD.LBL_CREATE_KB_ARTICLE}" onclick="javascript:window.location.href=\'index.php?module=AOK_KnowledgeBase&action=EditView\'"/>',
+                ),
         ),
       ),
       'maxColumns' => '2',

@@ -60,10 +60,17 @@ class AOP_Case_Updates extends AOP_Case_Updates_sugar {
             }
             if($email_template) {
                 foreach ($this->getContacts() as $contact) {
-                    $GLOBALS['log']->info("AOPCaseUpdates: Calling send email");
-                    $emails = array();
-                    $emails[] = $contact->emailAddress->getPrimaryAddress($contact);
-                    $res = $this->sendEmail($emails, $email_template, $signature, $this->case_id, $addDelimiter, $contact->id);
+
+                    if(!$this->IsNullOrEmptyString($contact->joomla_account_id)){
+
+                        if($contact->portal_account_disabled != '1'){
+                            $GLOBALS['log']->info("AOPCaseUpdates: Calling send email");
+                            $emails = array();
+                            $emails[] = $contact->emailAddress->getPrimaryAddress($contact);
+                            $res = $this->sendEmail($emails, $email_template, $signature, $this->case_id, $addDelimiter, $contact->id);
+                        }
+                    }
+
                 }
             }
         }else{
@@ -199,6 +206,11 @@ class AOP_Case_Updates extends AOP_Case_Updates_sugar {
             return false;
         }
         return true;
+    }
+
+    // Function for basic field validation (present and neither empty nor only white space
+    public function IsNullOrEmptyString($question){
+        return (!isset($question) || trim($question)==='');
     }
 
 }

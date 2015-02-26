@@ -326,6 +326,11 @@ class CaseUpdatesHook {
         $contact = $bean->get_linked_beans("contacts","Contact");
         if($contact){
             $contact = $contact[0];
+
+            if($this->IsNullOrEmptyString($contact->joomla_account_id) || $contact->portal_account_disabled == '1'){
+                return false;
+            }
+
         }else{
             return false;
         }
@@ -461,4 +466,12 @@ class CaseUpdatesHook {
     public function filterHTML($bean, $event, $arguments){
         $bean->description = SugarCleaner::cleanHtml($bean->description,true);
     }
+
+
+    // Function for basic field validation (present and neither empty nor only white space
+    public function IsNullOrEmptyString($question){
+        return (!isset($question) || trim($question)==='');
+    }
+
+
 }
